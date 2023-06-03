@@ -173,7 +173,7 @@ class Hospital:
         Text(DataframeRight, font="Arial 12 bold",
              width=50, height=16, padx=2, pady=2).grid(row=0, column=0)  # Crating txt field
 
-        # --------------------CREATING BUTTONS------------------------------------------
+        # --------------------CREATING BUTTONS inside Buttonframe------------------------------------------
         butnpres = Button(Buttonframe, text="Presciption", bg="red", fg="black",
                           font="Arial 13 bold", width=23, height=1, padx=5, pady=3)
         butnpres.grid(row=0, column=0)
@@ -197,6 +197,66 @@ class Hospital:
         butnexit = Button(Buttonframe, text="Exit", bg="red", fg="black",
                           font="Arial 13 bold", width=23, height=1, padx=5, pady=3)
         butnexit.grid(row=0, column=5)
+
+
+        # ------------------------------DATA STORAGE INFORM OF TABLE for Detail Frame------------------
+
+        # Making Scroll Bar inside Detail frame
+        scroll_x=ttk.Scrollbar(Detailframe,orient=HORIZONTAL)    #Scroll bar on x axis
+        scroll_y=ttk.Scrollbar(Detailframe,orient=VERTICAL)      #Scroll bar on y axis
+
+        #Creating table
+        self.table=ttk.Treeview(Detailframe,column=("tabls","ref","dose","nooftabs","lot","issue","expy","daily",
+                                                    "store","nhs","name","dob","address"),xscrollcommand=scroll_x.set,
+                                                    yscrollcommand=scroll_y.set)    #Giving temp name to headers to each column
+                                                                                  
+
+        scroll_x.pack(side=BOTTOM,fill=X)
+        scroll_y.pack(side=RIGHT,fill=Y)
+
+        scroll_x=ttk.Scrollbar(command=self.table.xview)
+        scroll_y=ttk.Scrollbar(command=self.table.yview)
+
+        #Giving Column Names
+        self.table.heading("tabls",text="Name of Table")
+        self.table.heading("ref",text="Reference Number")
+        self.table.heading("dose",text="Doseage")
+        self.table.heading("nooftabs",text="No of Tablets")
+        self.table.heading("lot",text="Lot")
+        self.table.heading("issue",text="Issue date")
+        self.table.heading("expy",text="Expiary Date")
+        self.table.heading("daily",text="Daily Dose")
+        self.table.heading("store",text="Storage")
+        self.table.heading("nhs",text="NHS Number")
+        self.table.heading("name",text="Name")
+        self.table.heading("dob",text="Date of Birth")
+        self.table.heading("address",text="Address")
+
+        self.table["show"]="headings"
+
+
+        self.table.column("tabls",width=100)
+        self.table.column("ref",width=100)
+        self.table.column("dose",width=100)
+        self.table.column("nooftabs",width=100)
+        self.table.column("lot",width=100)
+        self.table.column("issue",width=100)
+        self.table.column("expy",width=100)
+        self.table.column("daily",width=100)
+        self.table.column("store",width=100)
+        self.table.column("nhs",width=100)
+        self.table.column("name",width=100)
+        self.table.column("dob",width=100)
+        self.table.column("address",width=100)
+
+        self.table.pack(fill=BOTH,expand=1)
+
+
+        
+
+
+
+
 
 
 root = Tk()
