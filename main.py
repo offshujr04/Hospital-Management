@@ -4,7 +4,8 @@ from tkinter import messagebox
 import random
 import time
 import datetime
-# import mysql.connector
+import mysql.connector
+from mysql.connector import Error
 
 
 class Hospital:
@@ -161,7 +162,7 @@ class Hospital:
                        font="Arial 12 bold", padx=2, pady=6)  # Label Name
         lblmed.grid(row=3, column=2, sticky=W)
         txtmed = Entry(DataframeLeft, font="Arial 12 bold",
-                       textvariable=self.store,width=35)  # Entry field
+                       textvariable=self.med,width=35)  # Entry field
         txtmed.grid(row=3, column=3)
 
         lblid = Label(DataframeLeft, text="Patient Id",
@@ -286,7 +287,25 @@ class Hospital:
 
         self.table.pack(fill=BOTH,expand=1)
 
-
+        # -----------Functanility Declaration------------------------
+        
+        def ipresdata(self):
+            if self.nameoftabs.get()=="" or self.ref.get()=="":
+                messagebox.showerror("Error","All fields need to be filled")        #(msg shown on window,msg shown to user)
+            else:
+                #Giving connection to database
+                connector=mysql.connector.connect(host="localhost",username="root",password="testing",database="hospitalmanagement")  #We need to give 4 sets of parameters
+                cursor=connector.cursor()
+                #inserting data
+                cursor.execute("insert into hospital values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+                            (self.ref.get(),self.nameoftabs.get(),self.dose.get(),self.nooftabs.get(),self.lot.get(),self.issue.get(),
+                                self.exp.get(),self.daily.get(),self.store.get(),
+                                self.nhs.get(),self.name.get(),self.dob.get(),self.address.get()))
+                connector.commit()
+                connector.close()
+        # except Error as e:
+        #     print("Error connecting to MySQL:", e)
+        
 
 
 
